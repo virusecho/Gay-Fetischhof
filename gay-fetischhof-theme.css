@@ -29,7 +29,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@300;400;500;600;700;800&display=swap");
 
 :root {
-  --gf-version: "v1.7-neon-cruise";
+  --gf-version: "v2.0-neon-cruise";
 
   /* Base surfaces */
   --gf-bg:        #07070d;
@@ -305,6 +305,15 @@ html.gf-neon .cms-block-html,
 html.gf-neon .cms-element-html,
 html.gf-neon .cms-element-text {
   background-color: transparent !important;
+}
+/* CMS-Block hatte einen 1px hellen Vollrahmen rund um den ganzen
+   Seiteninhalt (das war „die weiße Rahmen“). Border killen. */
+html.gf-neon .cms-block,
+html.gf-neon .cms-block-html,
+html.gf-neon .cms-section,
+html.gf-neon .cms-section-default {
+  border: 0 !important;
+  box-shadow: none !important;
 }
 
 /* Flyout / Mega-Menü + Offcanvas (Menü & Warenkorb) dunkel */
