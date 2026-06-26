@@ -17,10 +17,12 @@
 (function () {
   "use strict";
 
-  console.log("%cGay-Fetischhof theme JS · v1.8-neon-cruise", "color:#ff2d95;font-weight:bold;");
+  console.log("%cGay-Fetischhof theme JS · v1.9-neon-cruise", "color:#ff2d95;font-weight:bold;");
 
-  // Fragment über GitHub Pages (permanent, Cache ~10 Min, Auto-Update bei Push).
+  // Fragment über GitHub Pages (permanent). Cache-Bust pro Minute, damit
+  // Content-Edits in ~1 Min sichtbar sind (statt 10-Min-Pages-Cache).
   var FRAGMENT_URL = "https://virusecho.github.io/Gay-Fetischhof/startseite.html";
+  function fragmentUrl() { return FRAGMENT_URL + "?v=" + Math.floor(Date.now() / 60000); }
 
   var root = document.documentElement;
 
@@ -113,7 +115,7 @@
     if (!mount || mount.getAttribute("data-gf-loaded") === "1") return;
     mount.setAttribute("data-gf-loaded", "1");
 
-    fetch(FRAGMENT_URL, { cache: "no-cache" })
+    fetch(fragmentUrl(), { cache: "no-cache" })
       .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.text(); })
       .then(function (html) {
         mount.innerHTML = html;
