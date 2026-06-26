@@ -29,7 +29,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@300;400;500;600;700;800&display=swap");
 
 :root {
-  --gf-version: "v1-neon-cruise";
+  --gf-version: "v1.1-neon-cruise";
 
   /* Base surfaces */
   --gf-bg:        #07070d;
@@ -373,17 +373,84 @@ html.gf-neon .footer-main a:hover { color: var(--gf-cyan); }
 }
 
 /* =========================================
-   9) CHECKOUT SAFETY
+   9) CHECKOUT / ACCOUNT — DARK (Neon Cruise)
    ---------------------------------------
-   Не застосовуємо агресивний неон на сторінках оформлення,
-   щоб поля/підсумок лишались читабельними.
+   Темний, але читабельний: панелі = темні поверхні,
+   ВЕСЬ текст світлий. Ці правила свідомо перебивають
+   старі фікси `color:#000 !important` зі старого коду
+   (їх можна прибрати з поля "Eigener CSS-Code").
    ========================================= */
 html.gf-neon body.is-ctl-checkout,
 html.gf-neon body.is-ctl-account,
-html.gf-neon body.is-ctl-register {
+html.gf-neon body.is-ctl-register,
+html.gf-neon body.is-ctl-checkout .content-main,
+html.gf-neon body.is-ctl-account .content-main {
   background: var(--gf-bg-2);
+  color: var(--gf-text);
 }
 html.gf-neon body.is-ctl-checkout .card,
-html.gf-neon body.is-ctl-account .card {
+html.gf-neon body.is-ctl-account .card,
+html.gf-neon body.is-ctl-register .card,
+html.gf-neon .checkout-aside-container,
+html.gf-neon .checkout-main {
   background: var(--gf-surface);
+  border: 1px solid var(--gf-line);
+  color: var(--gf-text);
+}
+
+/* Кошик у сайдбарі оформлення — світлий текст (перебиває старий #000) */
+html.gf-neon .checkout .checkout-aside-product-list .nesting-level-1 .line-item-details-container div,
+html.gf-neon .checkout .checkout-aside-product-list .nesting-level-1 .line-item-price div,
+html.gf-neon .checkout-aside-product-list .line-item-label,
+html.gf-neon .checkout-aside-product-list .line-item-total-price,
+html.gf-neon .checkout-aside-summary-list .checkout-aside-summary-label,
+html.gf-neon .checkout-aside-summary-list .checkout-aside-summary-value {
+  color: var(--gf-text) !important;
+}
+html.gf-neon .checkout-aside-summary-total .checkout-aside-summary-value { color: var(--gf-cyan) !important; }
+
+/* link-кнопки: на темному фоні чорний нечитабельний → світлий неон
+   (замінює старе .btn-link{color:#000}) */
+html.gf-neon .btn-link { color: var(--gf-cyan-2); }
+html.gf-neon .btn-link:hover { color: var(--gf-magenta-2); }
+
+/* =========================================
+   10) PRODUCT GALLERY (перенесено зі старого коду)
+   ========================================= */
+html.gf-neon .gallery-slider-item .gallery-slider-image {
+  inline-size: -webkit-fill-available;
+}
+
+/* =========================================
+   11) HINWEISSEITE / WARTUNG / GESPERRT — Block zentrieren
+   ---------------------------------------
+   Перенесено зі старого "Eigener CSS-Code". Навмисно БЕЗ
+   неймспейсу html.gf-neon — щоб центрування працювало й тоді,
+   коли на сторінці-заглушці тема не підвантажилась.
+   ========================================= */
+.is-ctl-maintenance .content-main,
+.is-ctl-locked .content-main {
+  display: flex;
+  justify-content: center;
+}
+.is-ctl-maintenance .content-main .container,
+.is-ctl-locked .content-main .container {
+  max-width: none;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.is-ctl-maintenance .row,
+.is-ctl-locked .row { justify-content: center; }
+.is-ctl-maintenance .row > [class^="col"],
+.is-ctl-locked .row > [class^="col"] {
+  max-width: 1100px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.is-ctl-maintenance .card,
+.is-ctl-locked .card {
+  max-width: 1100px;
+  width: 100%;
 }
