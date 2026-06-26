@@ -29,7 +29,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@300;400;500;600;700;800&display=swap");
 
 :root {
-  --gf-version: "v1.1-neon-cruise";
+  --gf-version: "v1.4-neon-cruise";
 
   /* Base surfaces */
   --gf-bg:        #07070d;
@@ -231,6 +231,87 @@ html.gf-neon textarea.form-control:focus {
   background: var(--gf-surface-2);
   color: var(--gf-text);
 }
+
+/* =========================================
+   3.1) ICONS (Shopware-Sprite: .icon > svg > use)
+   ---------------------------------------
+   Default-Icons sind #333/#4a545b → auf dunkler Chrome unsichtbar.
+   svg fill folgt currentColor → wir setzen color hell + erzwingen fill.
+   ========================================= */
+html.gf-neon .header-main .icon svg,
+html.gf-neon .header-main .icon svg *,
+html.gf-neon .offcanvas .icon svg,
+html.gf-neon .offcanvas .icon svg *,
+html.gf-neon .footer-main .icon svg,
+html.gf-neon .footer-main .icon svg * {
+  color: var(--gf-text-soft) !important;
+  fill: currentColor !important;
+}
+html.gf-neon .header-main .btn:hover .icon svg,
+html.gf-neon .header-main a:hover .icon svg,
+html.gf-neon .header-main .icon svg:hover,
+html.gf-neon .footer-main a:hover .icon svg {
+  color: var(--gf-cyan) !important;
+}
+html.gf-neon .header-nav-main-toggle-label,
+html.gf-neon .header-actions-btn .header-actions-btn-label {
+  color: var(--gf-text-soft);
+}
+
+/* =========================================
+   3.2) DARK CHROME — weiße Flächen killen
+   ---------------------------------------
+   CMS-Blöcke (.cms-block-html u.a.) haben per Default #fff Hintergrund
+   → auf dunklem Theme „zerbrochene“ weiße Kästen. Transparent erzwingen
+   (nur background-COLOR, Hintergrundbilder bleiben erhalten).
+   ========================================= */
+html.gf-neon .content-main,
+html.gf-neon .cms-sections,
+html.gf-neon .cms-section,
+html.gf-neon .cms-block,
+html.gf-neon .cms-block-container,
+html.gf-neon .cms-block-html,
+html.gf-neon .cms-element-html,
+html.gf-neon .cms-element-text {
+  background-color: transparent !important;
+}
+
+/* Flyout / Mega-Menü + Offcanvas (Menü & Warenkorb) dunkel */
+html.gf-neon .navigation-flyout,
+html.gf-neon .navigation-flyout-content,
+html.gf-neon .main-navigation-menu,
+html.gf-neon .offcanvas,
+html.gf-neon .offcanvas-body,
+html.gf-neon .js-flyout-menu {
+  background-color: var(--gf-surface) !important;
+  color: var(--gf-text);
+  border-color: var(--gf-line) !important;
+}
+html.gf-neon .navigation-flyout a,
+html.gf-neon .offcanvas a,
+html.gf-neon .main-navigation-menu a { color: var(--gf-text-soft); }
+html.gf-neon .navigation-flyout a:hover,
+html.gf-neon .offcanvas a:hover { color: var(--gf-cyan); }
+html.gf-neon .offcanvas .offcanvas-header,
+html.gf-neon .offcanvas .offcanvas-close { border-color: var(--gf-line); color: var(--gf-text); }
+
+/* Cookie-Banner dunkel */
+html.gf-neon .cookie-permission-container,
+html.gf-neon .js-cookie-permission {
+  background: var(--gf-surface) !important;
+  color: var(--gf-text);
+  border-top: 1px solid var(--gf-line);
+}
+
+/* Modale / Dropdowns dunkel */
+html.gf-neon .modal-content,
+html.gf-neon .dropdown-menu {
+  background-color: var(--gf-surface);
+  color: var(--gf-text);
+  border: 1px solid var(--gf-line);
+}
+html.gf-neon .dropdown-item { color: var(--gf-text-soft); }
+html.gf-neon .dropdown-item:hover { background-color: var(--gf-surface-2); color: var(--gf-cyan); }
 
 /* =========================================
    4) BUTTONS / FORMS
