@@ -5,37 +5,28 @@ Eigener Shopware-6-Sales-Channel (Theme: *Themeware Modern*), individuelles Desi
 
 Das Theme wird **nicht** durch Code im Shopware-Backend verändert, sondern über die
 Theme-Manager-Felder **„CSS-Datei laden“** und **„JavaScript-Datei laden“** als externe
-Dateien eingebunden. Diese Dateien liegen hier im Repo und werden über das **jsDelivr-CDN**
-ausgeliefert (korrekter MIME-Type, Caching, CORS).
+Dateien eingebunden. Diese Dateien liegen hier im Repo und werden über **GitHub Pages**
+ausgeliefert (korrekter MIME-Type, CORS, Cache nur ~10 Min, Auto-Update bei jedem Push).
 
-## 🔗 Links für den Theme-Manager
+## 🔗 Links für den Theme-Manager (permanent)
 
 > Theme-Manager → *Gay-Fetischhof* → Abschnitt **CSS-Datei** / **JavaScript-Datei**
 
 | Feld | Wert |
 |------|------|
 | **CSS-Datei laden** | `ja` |
-| **CSS-Datei** | `https://cdn.jsdelivr.net/gh/virusecho/Gay-Fetischhof@main/gay-fetischhof-theme.css` |
+| **CSS-Datei** | `https://virusecho.github.io/Gay-Fetischhof/gay-fetischhof-theme.css` |
 | **JavaScript-Datei laden** | `ja` |
-| **JavaScript-Datei** | `https://cdn.jsdelivr.net/gh/virusecho/Gay-Fetischhof@main/gay-fetischhof-theme.js` |
+| **JavaScript-Datei** | `https://virusecho.github.io/Gay-Fetischhof/gay-fetischhof-theme.js` |
 | **Datei asynchron laden** | `nein` *(CSS synchron, sonst kurzes Aufblitzen des Default-Themes)* |
 
-Nach dem Speichern **Theme kompilieren** und Storefront mit Hard-Reload (`Strg`+`F5`) prüfen.
-Konsole zeigt zur Kontrolle: `Gay-Fetischhof theme JS · v1-neon-cruise`.
+**Permanent — einmal eintragen, nie wieder ändern.** Bei jedem `git push` baut GitHub Pages
+automatisch neu; Änderungen sind nach ~1 Min Build + max. 10 Min Cache live. Zum sofortigen
+Sehen einfach Hard-Reload (`Strg`+`F5`). Konsole zeigt: `Gay-Fetischhof theme JS · v1.8-neon-cruise`.
 
-> **⚠️ Cache-Wichtig (aktive Entwicklung):** jsDelivr setzt `@main`-Dateien
-> `cache-control: max-age=604800` → **Browser der Besucher cachen das CSS 7 Tage**, und
-> `purge` propagiert nur langsam. Während aktiv gestylt wird, **statt `@main` den Commit-SHA
-> pinnen** — das ist eine *neue, unveränderliche* URL und lädt sofort frisch:
->
-> `https://cdn.jsdelivr.net/gh/virusecho/Gay-Fetischhof@<SHA>/gay-fetischhof-theme.css`
-> `https://cdn.jsdelivr.net/gh/virusecho/Gay-Fetischhof@<SHA>/gay-fetischhof-theme.js`
->
-> Nach jedem Push neuen SHA eintragen + Theme neu kompilieren. Wenn das Design final ist,
-> zurück auf `@main` (set-and-forget). Den aktuellen SHA: `git rev-parse HEAD`.
->
-> Das **Startseiten-Fragment** lädt das JS bewusst über `raw.githubusercontent.com`
-> (Cache nur 5 Min) → Content-Auto-Sync ohne 7-Tage-Falle.
+> Pages setzt `cache-control: max-age=600` (10 Min) statt jsDelivrs 7 Tage → kein SHA-Pinning,
+> kein Purge nötig. Das Startseiten-Fragment lädt das JS ebenfalls über Pages
+> (`https://virusecho.github.io/Gay-Fetischhof/startseite.html`).
 
 ## 📄 Dateien
 

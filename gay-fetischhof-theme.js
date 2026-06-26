@@ -17,11 +17,10 @@
 (function () {
   "use strict";
 
-  console.log("%cGay-Fetischhof theme JS · v1.6-neon-cruise", "color:#ff2d95;font-weight:bold;");
+  console.log("%cGay-Fetischhof theme JS · v1.8-neon-cruise", "color:#ff2d95;font-weight:bold;");
 
-  // Fragment über raw.githubusercontent (Cache nur 5 Min) → echter Auto-Sync.
-  // jsDelivr @main würde 7 Tage cachen; raw aktualisiert sich fast sofort.
-  var FRAGMENT_URL = "https://raw.githubusercontent.com/virusecho/Gay-Fetischhof/main/startseite.html";
+  // Fragment über GitHub Pages (permanent, Cache ~10 Min, Auto-Update bei Push).
+  var FRAGMENT_URL = "https://virusecho.github.io/Gay-Fetischhof/startseite.html";
 
   var root = document.documentElement;
 
