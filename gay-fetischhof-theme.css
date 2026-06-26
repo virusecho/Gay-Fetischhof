@@ -1,0 +1,389 @@
+/* =========================================================
+   GAY-FETISCHHOF — GLOBAL THEME (CSS)  ·  "NEON CRUISE"
+   ---------------------------------------------------------
+   Subsite von peitschenhandel.de (Shopware 6 / Themeware Modern).
+   JS у окремому файлі: gay-fetischhof-theme.js (підключати ПІСЛЯ цього CSS).
+
+   Підключення через Theme-Manager:
+     CSS-Datei        → https://cdn.jsdelivr.net/gh/virusecho/Gay-Fetischhof@main/gay-fetischhof-theme.css
+     JavaScript-Datei → https://cdn.jsdelivr.net/gh/virusecho/Gay-Fetischhof@main/gay-fetischhof-theme.js
+
+   ЗМІСТ:
+     0)  Fonts + :root tokens
+     1)  Base / типографіка / темний неон-фон
+     2)  Header (sticky, glow, neon top-bar через JS-клас)
+     3)  Navigation
+     4)  Buttons / forms
+     5)  Product box / listing
+     6)  CMS sections (головна та сторінки)
+     7)  Footer
+     8)  Scroll-reveal анімації ([data-gf-animate])
+     9)  Checkout safety (не ламати оформлення)
+
+   НЕЙМСПЕЙС: усі власні класи з префіксом .gf-  ·  html.gf-neon як корінь.
+   ========================================================= */
+
+/* =========================================
+   0) FONTS + ROOT TOKENS
+   ========================================= */
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@300;400;500;600;700;800&display=swap");
+
+:root {
+  --gf-version: "v1-neon-cruise";
+
+  /* Base surfaces */
+  --gf-bg:        #07070d;
+  --gf-bg-2:      #0d0d18;
+  --gf-bg-3:      #14142400;
+  --gf-surface:   #12121f;
+  --gf-surface-2: #1a1a2e;
+  --gf-line:      rgba(255, 255, 255, 0.08);
+  --gf-line-2:    rgba(255, 255, 255, 0.14);
+
+  /* Neon accents */
+  --gf-magenta:   #ff2d95;
+  --gf-magenta-2: #ff5cb0;
+  --gf-cyan:      #00e5ff;
+  --gf-cyan-2:    #5af3ff;
+  --gf-violet:    #8a5cff;
+
+  /* Text */
+  --gf-text:      #f3f1fb;
+  --gf-text-soft: #b9b6cf;
+  --gf-text-mute: #7d7a96;
+
+  /* Effects */
+  --gf-glow-m: 0 0 22px rgba(255, 45, 149, 0.55);
+  --gf-glow-c: 0 0 22px rgba(0, 229, 255, 0.50);
+  --gf-grad:   linear-gradient(100deg, var(--gf-magenta) 0%, var(--gf-violet) 50%, var(--gf-cyan) 100%);
+  --gf-grad-soft: linear-gradient(135deg, rgba(255,45,149,.16), rgba(0,229,255,.12));
+
+  --gf-radius:    16px;
+  --gf-radius-lg: 24px;
+  --gf-radius-pill: 999px;
+  --gf-shadow:    0 24px 60px rgba(0, 0, 0, 0.55);
+
+  --gf-font-display: "Space Grotesk", "Sora", system-ui, sans-serif;
+  --gf-font-body:    "Sora", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* =========================================
+   1) BASE / TYPOGRAPHY / DARK NEON
+   ========================================= */
+html.gf-neon body,
+body.themeware {
+  background: var(--gf-bg);
+  color: var(--gf-text);
+  font-family: var(--gf-font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Атмосферне неонове підсвічування фону сторінки */
+html.gf-neon body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 50% at 12% 0%, rgba(255, 45, 149, 0.16), transparent 60%),
+    radial-gradient(55% 45% at 92% 8%, rgba(0, 229, 255, 0.14), transparent 60%),
+    radial-gradient(70% 60% at 50% 110%, rgba(138, 92, 255, 0.14), transparent 60%);
+}
+html.gf-neon .header-main,
+html.gf-neon main,
+html.gf-neon .footer-main { position: relative; z-index: 1; }
+
+html.gf-neon h1, html.gf-neon h2, html.gf-neon h3,
+html.gf-neon h4, html.gf-neon h5, html.gf-neon h6 {
+  font-family: var(--gf-font-display);
+  color: var(--gf-text);
+  letter-spacing: -0.01em;
+  font-weight: 700;
+}
+
+html.gf-neon a { color: var(--gf-cyan-2); }
+html.gf-neon a:hover { color: var(--gf-magenta-2); }
+
+html.gf-neon ::selection { background: var(--gf-magenta); color: #fff; }
+
+/* Контентні картки/панелі теми */
+html.gf-neon .card,
+html.gf-neon .product-box,
+html.gf-neon .cms-block-category-navigation,
+html.gf-neon .offcanvas {
+  background: var(--gf-surface);
+  border: 1px solid var(--gf-line);
+  color: var(--gf-text);
+}
+
+/* Скролбар */
+html.gf-neon ::-webkit-scrollbar { width: 11px; height: 11px; }
+html.gf-neon ::-webkit-scrollbar-track { background: var(--gf-bg-2); }
+html.gf-neon ::-webkit-scrollbar-thumb {
+  background: linear-gradient(var(--gf-magenta), var(--gf-violet));
+  border-radius: 999px;
+  border: 2px solid var(--gf-bg-2);
+}
+
+/* =========================================
+   2) HEADER
+   ========================================= */
+html.gf-neon .header-main {
+  background: rgba(8, 8, 14, 0.82);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border-bottom: 1px solid var(--gf-line);
+  box-shadow: 0 1px 0 rgba(255, 45, 149, 0.25), 0 18px 40px rgba(0, 0, 0, 0.45);
+}
+
+/* sticky-стан (клас додає JS при скролі) */
+html.gf-neon.gf-scrolled .header-main {
+  background: rgba(7, 7, 13, 0.94);
+  box-shadow: 0 1px 0 rgba(0, 229, 255, 0.30), 0 14px 34px rgba(0, 0, 0, 0.6);
+}
+
+/* Тонка неон-смужка зверху сайту (вставляє JS) */
+.gf-topbar {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 8px 16px;
+  font-family: var(--gf-font-display);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--gf-grad);
+  background-size: 200% 200%;
+  animation: gf-flow 9s ease infinite;
+}
+.gf-topbar a { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+@keyframes gf-flow {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+
+/* Логотип-текст fallback (якщо немає медіа-логотипу) */
+html.gf-neon .header-logo-main a,
+html.gf-neon .header-logo-main .header-logo-main-link { color: var(--gf-text); }
+
+/* =========================================
+   3) NAVIGATION
+   ========================================= */
+html.gf-neon .nav-main .nav-link,
+html.gf-neon .main-navigation-link,
+html.gf-neon .navbar-nav .nav-link {
+  color: var(--gf-text-soft);
+  font-family: var(--gf-font-display);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  position: relative;
+}
+html.gf-neon .nav-main .nav-link:hover,
+html.gf-neon .main-navigation-link:hover,
+html.gf-neon .navbar-nav .nav-link:hover { color: var(--gf-text); }
+
+html.gf-neon .main-navigation-link::after,
+html.gf-neon .navbar-nav .nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: -2px;
+  height: 2px; width: 0;
+  background: var(--gf-grad);
+  transition: width 0.28s ease;
+}
+html.gf-neon .main-navigation-link:hover::after,
+html.gf-neon .navbar-nav .nav-link:hover::after { width: 100%; }
+
+/* Іконки дій (Konto / Merkzettel / Warenkorb) */
+html.gf-neon .header-actions .header-actions-btn,
+html.gf-neon .header-actions a { color: var(--gf-text-soft); }
+html.gf-neon .header-actions .header-actions-btn:hover { color: var(--gf-cyan); }
+html.gf-neon .header-cart-badge,
+html.gf-neon .badge.cart-badge {
+  background: var(--gf-magenta) !important;
+  color: #fff !important;
+  box-shadow: var(--gf-glow-m);
+}
+
+/* Пошук */
+html.gf-neon .header-search-input,
+html.gf-neon input.form-control,
+html.gf-neon select.form-select,
+html.gf-neon textarea.form-control {
+  background: var(--gf-surface-2);
+  border: 1px solid var(--gf-line-2);
+  color: var(--gf-text);
+}
+html.gf-neon .header-search-input::placeholder { color: var(--gf-text-mute); }
+html.gf-neon .header-search-input:focus,
+html.gf-neon input.form-control:focus,
+html.gf-neon textarea.form-control:focus {
+  border-color: var(--gf-cyan);
+  box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.18);
+  background: var(--gf-surface-2);
+  color: var(--gf-text);
+}
+
+/* =========================================
+   4) BUTTONS / FORMS
+   ========================================= */
+html.gf-neon .btn-primary,
+html.gf-neon .btn-buy,
+html.gf-neon button.btn-primary {
+  background: var(--gf-grad);
+  background-size: 180% 180%;
+  border: none;
+  color: #fff;
+  font-family: var(--gf-font-display);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-radius: var(--gf-radius-pill);
+  box-shadow: var(--gf-glow-m);
+  transition: transform 0.18s ease, box-shadow 0.25s ease, background-position 0.5s ease;
+}
+html.gf-neon .btn-primary:hover,
+html.gf-neon .btn-buy:hover {
+  transform: translateY(-2px);
+  background-position: 100% 50%;
+  box-shadow: var(--gf-glow-c);
+  color: #fff;
+}
+
+html.gf-neon .btn-secondary,
+html.gf-neon .btn-outline-primary {
+  background: transparent;
+  border: 1.5px solid var(--gf-line-2);
+  color: var(--gf-text);
+  border-radius: var(--gf-radius-pill);
+  font-family: var(--gf-font-display);
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+html.gf-neon .btn-secondary:hover,
+html.gf-neon .btn-outline-primary:hover {
+  border-color: var(--gf-cyan);
+  color: var(--gf-cyan);
+  box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.12);
+}
+
+/* =========================================
+   5) PRODUCT BOX / LISTING
+   ========================================= */
+html.gf-neon .product-box {
+  border-radius: var(--gf-radius);
+  overflow: hidden;
+  transition: transform 0.22s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+html.gf-neon .product-box:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 45, 149, 0.45);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 45, 149, 0.25);
+}
+html.gf-neon .product-box .product-name,
+html.gf-neon .product-box .product-name:hover { color: var(--gf-text); }
+html.gf-neon .product-price,
+html.gf-neon .product-box .product-price { color: var(--gf-cyan); font-weight: 700; }
+html.gf-neon .product-badges .badge,
+html.gf-neon .badge-discount {
+  background: var(--gf-magenta);
+  color: #fff;
+  box-shadow: var(--gf-glow-m);
+}
+html.gf-neon .product-image-wrapper { background: #fff; border-radius: var(--gf-radius); }
+
+/* =========================================
+   6) CMS SECTIONS
+   ========================================= */
+html.gf-neon .cms-page,
+html.gf-neon .cms-block,
+html.gf-neon .cms-section { background: transparent; }
+
+html.gf-neon .cms-block-text,
+html.gf-neon .cms-element-text { color: var(--gf-text-soft); }
+html.gf-neon .cms-element-text h1,
+html.gf-neon .cms-element-text h2,
+html.gf-neon .cms-element-text h3 { color: var(--gf-text); }
+
+/* Заголовок секції в неон-стилі (утиліта для CMS) */
+.gf-eyebrow {
+  display: inline-block;
+  font-family: var(--gf-font-display);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gf-cyan);
+  margin-bottom: 12px;
+}
+.gf-gradient-text {
+  background: var(--gf-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* =========================================
+   7) FOOTER
+   ========================================= */
+html.gf-neon .footer-main {
+  background: linear-gradient(180deg, var(--gf-bg) 0%, #050509 100%);
+  border-top: 1px solid var(--gf-line);
+  color: var(--gf-text-soft);
+}
+html.gf-neon .footer-main::before {
+  content: "";
+  display: block;
+  height: 2px;
+  background: var(--gf-grad);
+  background-size: 200% 200%;
+  animation: gf-flow 9s ease infinite;
+}
+html.gf-neon .footer-main .footer-headline,
+html.gf-neon .footer-main h3,
+html.gf-neon .footer-main h4 {
+  color: var(--gf-text);
+  font-family: var(--gf-font-display);
+}
+html.gf-neon .footer-main a { color: var(--gf-text-soft); }
+html.gf-neon .footer-main a:hover { color: var(--gf-cyan); }
+
+/* =========================================
+   8) SCROLL-REVEAL ([data-gf-animate])
+   ========================================= */
+[data-gf-animate] {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.7s cubic-bezier(.2,.7,.2,1), transform 0.7s cubic-bezier(.2,.7,.2,1);
+  will-change: opacity, transform;
+}
+[data-gf-animate].gf-in-view { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  [data-gf-animate] { opacity: 1 !important; transform: none !important; transition: none; }
+  .gf-topbar, html.gf-neon .footer-main::before { animation: none; }
+}
+
+/* =========================================
+   9) CHECKOUT SAFETY
+   ---------------------------------------
+   Не застосовуємо агресивний неон на сторінках оформлення,
+   щоб поля/підсумок лишались читабельними.
+   ========================================= */
+html.gf-neon body.is-ctl-checkout,
+html.gf-neon body.is-ctl-account,
+html.gf-neon body.is-ctl-register {
+  background: var(--gf-bg-2);
+}
+html.gf-neon body.is-ctl-checkout .card,
+html.gf-neon body.is-ctl-account .card {
+  background: var(--gf-surface);
+}
