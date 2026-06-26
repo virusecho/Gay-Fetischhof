@@ -17,7 +17,7 @@
 (function () {
   "use strict";
 
-  console.log("%cGay-Fetischhof theme JS · v1.2-neon-cruise", "color:#ff2d95;font-weight:bold;");
+  console.log("%cGay-Fetischhof theme JS · v1.3-neon-cruise", "color:#ff2d95;font-weight:bold;");
 
   var FRAGMENT_URL = "https://cdn.jsdelivr.net/gh/virusecho/Gay-Fetischhof@main/startseite.html";
 
@@ -55,26 +55,38 @@
   }
 
   /* ---- 4) scroll-reveal ---- */
+  function reveal(el) { el.classList.add("gf-in-view"); }
+
   function setupReveal() {
-    var els = document.querySelectorAll("[data-gf-animate]");
+    var els = document.querySelectorAll("[data-gf-animate]:not(.gf-in-view)");
     if (!els.length) return;
 
     if (!("IntersectionObserver" in window)) {
-      els.forEach(function (el) { el.classList.add("gf-in-view"); });
+      els.forEach(reveal);
       return;
     }
     var io = new IntersectionObserver(
       function (entries) {
         entries.forEach(function (e) {
-          if (e.isIntersecting) {
-            e.target.classList.add("gf-in-view");
-            io.unobserve(e.target);
-          }
+          if (e.isIntersecting) { reveal(e.target); io.unobserve(e.target); }
         });
       },
       { threshold: 0.16, rootMargin: "0px 0px -8% 0px" }
     );
-    els.forEach(function (el) { io.observe(el); });
+
+    var vh = window.innerHeight || document.documentElement.clientHeight;
+    els.forEach(function (el) {
+      io.observe(el);
+      // Schon im Viewport? Sofort zeigen — IO kann in Hintergrund-Tabs
+      // gedrosselt werden, oben sichtbarer Inhalt darf nicht unsichtbar bleiben.
+      var r = el.getBoundingClientRect();
+      if (r.top < vh && r.bottom > 0) reveal(el);
+    });
+
+    // Sicherheitsnetz: nach kurzer Zeit alles zeigen, was noch versteckt ist.
+    setTimeout(function () {
+      document.querySelectorAll("[data-gf-animate]:not(.gf-in-view)").forEach(reveal);
+    }, 1400);
   }
 
   /* ---- 5) авто-теги для CMS-секцій головної (плавна поява) ---- */
