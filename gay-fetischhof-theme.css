@@ -29,7 +29,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@300;400;500;600;700;800&display=swap");
 
 :root {
-  --gf-version: "v1.4-neon-cruise";
+  --gf-version: "v1.5-neon-cruise";
 
   /* Base surfaces */
   --gf-bg:        #07070d;
@@ -258,6 +258,37 @@ html.gf-neon .header-actions-btn .header-actions-btn-label {
   color: var(--gf-text-soft);
 }
 
+/* 3.1b) Action-Icon-Buttons: weiße Kästen + Rahmen entfernen
+   (Default-bg #f8f8fa, border #dadae5) → transparent, Neon-Hover */
+html.gf-neon .header-main .header-actions-btn,
+html.gf-neon .header-main .header-actions .btn,
+html.gf-neon .header-main .header-search-btn,
+html.gf-neon .header-main .header-close-btn,
+html.gf-neon .header-main .nav-main-toggle-btn {
+  background: transparent !important;
+  border: 1px solid transparent !important;
+  border-radius: 12px !important;
+  box-shadow: none !important;
+  transition: background-color .2s ease, border-color .2s ease, box-shadow .25s ease;
+}
+html.gf-neon .header-main .header-actions-btn:hover,
+html.gf-neon .header-main .header-search-btn:hover,
+html.gf-neon .header-main .nav-main-toggle-btn:hover {
+  background: rgba(255, 45, 149, 0.12) !important;
+  border-color: rgba(255, 45, 149, 0.40) !important;
+  box-shadow: 0 0 16px rgba(255, 45, 149, 0.22) !important;
+}
+html.gf-neon .header-main .header-actions-btn:hover .icon svg,
+html.gf-neon .header-main .nav-main-toggle-btn:hover .icon svg { color: var(--gf-cyan) !important; }
+
+/* Such-Feld + Gruppe: keine hellen Default-Rahmen */
+html.gf-neon .header-main .header-search-input,
+html.gf-neon .header-main .input-group,
+html.gf-neon .header-main .input-group .btn { border-color: var(--gf-line-2) !important; }
+
+/* Header-Hairline: kein weißer Strich, nur die Neon-Shadow-Linie */
+html.gf-neon .header-main { border-bottom-color: transparent !important; }
+
 /* =========================================
    3.2) DARK CHROME — weiße Flächen killen
    ---------------------------------------
@@ -429,14 +460,30 @@ html.gf-neon .footer-main::before {
   background-size: 200% 200%;
   animation: gf-flow 9s ease infinite;
 }
+/* Default-Footer-Text ist #333/#555 → auf dunklem Grund unlesbar.
+   Hell erzwingen (Themeware-Selektoren überschreiben). */
+html.gf-neon .footer-main,
+html.gf-neon .footer-main p,
+html.gf-neon .footer-main li,
+html.gf-neon .footer-main dt,
+html.gf-neon .footer-main dd,
+html.gf-neon .footer-main span,
+html.gf-neon .footer-main small,
+html.gf-neon .footer-main strong {
+  color: var(--gf-text-soft) !important;
+}
+html.gf-neon .footer-main .footer-column-headline,
 html.gf-neon .footer-main .footer-headline,
 html.gf-neon .footer-main h3,
 html.gf-neon .footer-main h4 {
-  color: var(--gf-text);
+  color: var(--gf-text) !important;
   font-family: var(--gf-font-display);
 }
-html.gf-neon .footer-main a { color: var(--gf-text-soft); }
-html.gf-neon .footer-main a:hover { color: var(--gf-cyan); }
+html.gf-neon .footer-main a,
+html.gf-neon .footer-main a strong,
+html.gf-neon .footer-main .footer-link { color: var(--gf-text-soft) !important; }
+html.gf-neon .footer-main a:hover,
+html.gf-neon .footer-main a:hover strong { color: var(--gf-cyan) !important; }
 
 /* =========================================
    8) SCROLL-REVEAL ([data-gf-animate])
