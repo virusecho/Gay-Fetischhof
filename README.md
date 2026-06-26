@@ -23,9 +23,19 @@ ausgeliefert (korrekter MIME-Type, Caching, CORS).
 Nach dem Speichern **Theme kompilieren** und Storefront mit Hard-Reload (`Strg`+`F5`) prüfen.
 Konsole zeigt zur Kontrolle: `Gay-Fetischhof theme JS · v1-neon-cruise`.
 
-> **Cache-Hinweis:** jsDelivr cacht `@main` aggressiv (bis zu 24 h). Nach einem Update
-> entweder einen festen Commit/Tag pinnen (`@<commit>`) oder den Purge nutzen:
-> `https://purge.jsdelivr.net/gh/virusecho/Gay-Fetischhof@main/gay-fetischhof-theme.css`
+> **⚠️ Cache-Wichtig (aktive Entwicklung):** jsDelivr setzt `@main`-Dateien
+> `cache-control: max-age=604800` → **Browser der Besucher cachen das CSS 7 Tage**, und
+> `purge` propagiert nur langsam. Während aktiv gestylt wird, **statt `@main` den Commit-SHA
+> pinnen** — das ist eine *neue, unveränderliche* URL und lädt sofort frisch:
+>
+> `https://cdn.jsdelivr.net/gh/virusecho/Gay-Fetischhof@<SHA>/gay-fetischhof-theme.css`
+> `https://cdn.jsdelivr.net/gh/virusecho/Gay-Fetischhof@<SHA>/gay-fetischhof-theme.js`
+>
+> Nach jedem Push neuen SHA eintragen + Theme neu kompilieren. Wenn das Design final ist,
+> zurück auf `@main` (set-and-forget). Den aktuellen SHA: `git rev-parse HEAD`.
+>
+> Das **Startseiten-Fragment** lädt das JS bewusst über `raw.githubusercontent.com`
+> (Cache nur 5 Min) → Content-Auto-Sync ohne 7-Tage-Falle.
 
 ## 📄 Dateien
 
