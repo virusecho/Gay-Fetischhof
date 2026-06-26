@@ -29,7 +29,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@300;400;500;600;700;800&display=swap");
 
 :root {
-  --gf-version: "v1.5-neon-cruise";
+  --gf-version: "v1.7-neon-cruise";
 
   /* Base surfaces */
   --gf-bg:        #07070d;
@@ -343,6 +343,53 @@ html.gf-neon .dropdown-menu {
 }
 html.gf-neon .dropdown-item { color: var(--gf-text-soft); }
 html.gf-neon .dropdown-item:hover { background-color: var(--gf-surface-2); color: var(--gf-cyan); }
+
+/* 3.3) Offcanvas-Cart + Alerts + btn-light (waren noch weiß) */
+html.gf-neon .offcanvas-header,
+html.gf-neon .offcanvas-cart-header,
+html.gf-neon .cart-offcanvas-header {
+  background-color: var(--gf-surface-2) !important;
+  color: var(--gf-text) !important;
+  border-bottom: 1px solid var(--gf-line) !important;
+}
+html.gf-neon .offcanvas-header .offcanvas-close,
+html.gf-neon .offcanvas-cart-header * { color: var(--gf-text) !important; }
+
+/* btn-light (Zur Kasse, Zurück) dunkel statt #f9f9f9 */
+html.gf-neon .btn-light {
+  background-color: var(--gf-surface-2) !important;
+  color: var(--gf-text-soft) !important;
+  border: 1px solid var(--gf-line-2) !important;
+}
+html.gf-neon .btn-light:hover:not(.disabled):not(:disabled) {
+  background-color: var(--gf-surface) !important;
+  color: var(--gf-cyan) !important;
+  border-color: var(--gf-cyan) !important;
+}
+/* Aktiver Checkout-Button = Neon (nur wenn nicht disabled) */
+html.gf-neon .begin-checkout-btn:not(.disabled):not(:disabled) {
+  background: var(--gf-grad) !important;
+  background-size: 180% 180%;
+  color: #fff !important;
+  border: none !important;
+  box-shadow: var(--gf-glow-m);
+}
+html.gf-neon .btn.disabled,
+html.gf-neon .btn:disabled { opacity: .5; }
+
+/* Alerts dunkel (Warenkorb leer, Hinweise, Checkout, Formulare) */
+html.gf-neon .alert {
+  background-color: var(--gf-surface-2) !important;
+  color: var(--gf-text) !important;
+  border: 1px solid var(--gf-line-2) !important;
+}
+html.gf-neon .alert a { color: var(--gf-cyan); }
+html.gf-neon .alert .icon svg,
+html.gf-neon .alert .icon svg * { color: var(--gf-text-soft) !important; fill: currentColor !important; }
+html.gf-neon .alert-info    { border-left: 3px solid var(--gf-cyan) !important; }
+html.gf-neon .alert-success { border-left: 3px solid #38e08a !important; }
+html.gf-neon .alert-warning { border-left: 3px solid #ffb648 !important; }
+html.gf-neon .alert-danger  { border-left: 3px solid var(--gf-magenta) !important; }
 
 /* =========================================
    4) BUTTONS / FORMS
