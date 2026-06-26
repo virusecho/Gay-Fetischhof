@@ -35,12 +35,28 @@ Konsole zeigt zur Kontrolle: `Gay-Fetischhof theme JS · v1-neon-cruise`.
 | `gay-fetischhof-theme.js` | Aktiviert das Theme (`html.gf-neon`), Scroll-State, Neon-Topbar, Scroll-Reveal-Animationen. Keine Eingriffe in Warenkorb/Checkout. |
 | `preview.html` | Vorschau der **Startseiten-Bausteine**. Jeder `<section>` = ein CMS-„HTML“-Block für die Erlebniswelt. |
 
-## 🏠 Startseite einrichten
+## 🏠 Startseite einrichten — Auto-Sync aus GitHub
 
-Die Startseiten-Blöcke aus `preview.html` (Reihenfolge 1–5: Hero, Kategorien, USP, Editorial,
-Newsletter) jeweils als **HTML-Element** in eine Shopware-**Erlebniswelt** einfügen und der
-Startseite des Sales-Channels zuweisen. Platzhalter ersetzen:
+Die Startseite lädt ihren Inhalt **live aus `startseite.html`** (dieses Repo, via jsDelivr).
+In der Shopware-**Erlebniswelt** der Startseite genügt **ein** CMS-„HTML“-Element mit nur
+diesem Platzhalter:
 
+```html
+<div data-gf-home>Lädt …</div>
+```
+
+Das Theme-JS (`gay-fetischhof-theme.js`) erkennt den Platzhalter, holt `startseite.html` und
+rendert die 5 Sektionen (Hero, Kategorien, USP, Editorial, Newsletter) hinein. **Edit auf
+GitHub → Startseite aktualisiert sich** (jsDelivr-Cache ggf. purgen, s. o.).
+
+> Den kompletten `preview.html` **nicht** ins HTML-Element einfügen — das ist nur die
+> Design-Vorschau. In Shopware kommt ausschließlich der Platzhalter-`<div>` rein.
+
+**Hinweis SEO:** Der Inhalt wird clientseitig injiziert (nicht im initialen HTML). Für die
+Startseite meist unkritisch; wer maximale SEO will, fügt die Sektionen aus `preview.html`
+stattdessen statisch ein (dann aber kein Auto-Sync).
+
+Platzhalter im Inhalt ersetzen (direkt in `startseite.html`):
 - Kategorie-Kacheln: `.bg`-Hintergründe durch echte Medien-URLs / Kategorie-Links tauschen.
 - Links (`/Kollektion/`, `/Leder/`, …) an die echten Kategorie-URLs anpassen.
 

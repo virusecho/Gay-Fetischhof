@@ -17,7 +17,9 @@
 (function () {
   "use strict";
 
-  console.log("%cGay-Fetischhof theme JS · v1-neon-cruise", "color:#ff2d95;font-weight:bold;");
+  console.log("%cGay-Fetischhof theme JS · v1.2-neon-cruise", "color:#ff2d95;font-weight:bold;");
+
+  var FRAGMENT_URL = "https://cdn.jsdelivr.net/gh/virusecho/Gay-Fetischhof@main/startseite.html";
 
   var root = document.documentElement;
 
@@ -89,9 +91,36 @@
     });
   }
 
+  /* ---- 6) Startseite-Fragment aus GitHub laden (Auto-Sync) ----
+     CMS-„HTML“-Element enthält nur:  <div data-gf-home>Lädt …</div>
+     Inhalt kommt live aus startseite.html im Repo. Edit auf GitHub
+     → Startseite aktualisiert sich (jsDelivr-Cache ggf. purgen). */
+  function loadHomeFragment() {
+    var mount = document.querySelector("[data-gf-home]");
+    if (!mount || mount.getAttribute("data-gf-loaded") === "1") return;
+    mount.setAttribute("data-gf-loaded", "1");
+
+    fetch(FRAGMENT_URL, { cache: "no-cache" })
+      .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.text(); })
+      .then(function (html) {
+        mount.innerHTML = html;
+        // injizierte Sektionen für Scroll-Reveal markieren
+        mount.querySelectorAll("section").forEach(function (sec, i) {
+          sec.setAttribute("data-gf-animate", "");
+          sec.style.transitionDelay = Math.min(i, 6) * 70 + "ms";
+        });
+        setupReveal();
+      })
+      .catch(function (e) {
+        console.warn("[Gay-Fetischhof] Startseite-Fragment konnte nicht geladen werden:", e);
+        mount.innerHTML = "";
+      });
+  }
+
   /* ---- init ---- */
   function init() {
     injectTopbar();
+    loadHomeFragment();
     autoTagCms();
     setupReveal();
     onScroll();
