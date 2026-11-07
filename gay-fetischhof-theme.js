@@ -17,7 +17,7 @@
 (function () {
   "use strict";
 
-  console.log("%cGay-Fetischhof theme JS · v1.9-neon-cruise", "color:#ff2d95;font-weight:bold;");
+  console.log("%cGay-Fetischhof theme JS · v2.1-neon-cruise", "color:#ff2d95;font-weight:bold;");
 
   // Fragment über GitHub Pages (permanent). Cache-Bust pro Minute, damit
   // Content-Edits in ~1 Min sichtbar sind (statt 10-Min-Pages-Cache).
@@ -47,6 +47,25 @@
     bar.innerHTML = TOPBAR_HTML;
     header.parentNode.insertBefore(bar, header);
   }
+
+  /* ---- Logo: transparentes PNG statt Version mit weissem Hintergrund ---- */
+  var LOGO_URL = "https://virusecho.github.io/Gay-Fetischhof/logo-gay-fetish-courtyard.png";
+  function swapLogo() {
+    var imgs = document.querySelectorAll(".header-logo-main-img");
+    for (var i = 0; i < imgs.length; i++) {
+      var img = imgs[i];
+      if (img.getAttribute("data-gf-logo")) continue;
+      var pic = img.parentNode;
+      if (pic && pic.tagName === "PICTURE") {
+        var sources = pic.querySelectorAll("source");
+        for (var j = 0; j < sources.length; j++) pic.removeChild(sources[j]);
+      }
+      img.removeAttribute("srcset");
+      img.src = LOGO_URL;
+      img.setAttribute("data-gf-logo", "1");
+    }
+  }
+  swapLogo();
 
   /* ---- 2) стан хедера при скролі ---- */
   function onScroll() {
@@ -134,6 +153,7 @@
 
   /* ---- init ---- */
   function init() {
+    swapLogo();
     injectTopbar();
     loadHomeFragment();
     autoTagCms();

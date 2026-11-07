@@ -29,7 +29,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@300;400;500;600;700;800&display=swap");
 
 :root {
-  --gf-version: "v2.0-neon-cruise";
+  --gf-version: "v2.1-neon-cruise";
 
   /* Base surfaces */
   --gf-bg:        #07070d;
@@ -168,6 +168,40 @@ html.gf-neon.gf-scrolled .header-main {
 @keyframes gf-flow {
   0%, 100% { background-position: 0% 50%; }
   50%      { background-position: 100% 50%; }
+}
+
+/* Логотип: transparentes PNG (statt weissem Quadrat), kompakte Hoehe, Neon-Glow.
+   content:url() tauscht das Bild sofort (Chrome/Safari/Edge); JS macht es zusaetzlich
+   fuer alle Browser. Wird das PNG in Shopware als Logo hochgeladen, ist beides egal. */
+html.gf-neon .header-logo-col,
+html.gf-neon .header-logo-main,
+html.gf-neon .header-logo-main-link,
+html.gf-neon .header-logo-picture {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+html.gf-neon .header-logo-main-link { display: inline-block; line-height: 0; }
+html.gf-neon .header-logo-main-img {
+  content: url("https://virusecho.github.io/Gay-Fetischhof/logo-gay-fetish-courtyard.png");
+  display: block;
+  width: auto !important;
+  height: 96px !important;
+  max-height: none !important;
+  max-width: 100%;
+  object-fit: contain;
+  background: transparent !important;
+  filter: drop-shadow(0 0 10px rgba(255, 45, 149, 0.35)) drop-shadow(0 0 22px rgba(138, 92, 255, 0.20));
+  transition: height 0.25s ease, filter 0.25s ease;
+}
+html.gf-neon .header-logo-main-link:hover .header-logo-main-img {
+  filter: drop-shadow(0 0 12px rgba(255, 45, 149, 0.6)) drop-shadow(0 0 26px rgba(0, 229, 255, 0.30));
+}
+html.gf-neon.gf-scrolled .header-logo-main-img { height: 68px !important; }
+@media (max-width: 767.98px) {
+  html.gf-neon .header-logo-main-img { height: 56px !important; }
+  html.gf-neon.gf-scrolled .header-logo-main-img { height: 48px !important; }
 }
 
 /* Логотип-текст fallback (якщо немає медіа-логотипу) */
