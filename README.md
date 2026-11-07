@@ -22,7 +22,7 @@ ausgeliefert (korrekter MIME-Type, CORS, Cache nur ~10 Min, Auto-Update bei jede
 
 **Permanent — einmal eintragen, nie wieder ändern.** Bei jedem `git push` baut GitHub Pages
 automatisch neu; Änderungen sind nach ~1 Min Build + max. 10 Min Cache live. Zum sofortigen
-Sehen einfach Hard-Reload (`Strg`+`F5`). Konsole zeigt: `Gay-Fetischhof theme JS · v1.8-neon-cruise`.
+Sehen einfach Hard-Reload (`Strg`+`F5`). Konsole zeigt: `Gay-Fetischhof theme JS · v2.1-neon-cruise`.
 
 > Pages setzt `cache-control: max-age=600` (10 Min) statt jsDelivrs 7 Tage → kein SHA-Pinning,
 > kein Purge nötig. Das Startseiten-Fragment lädt das JS ebenfalls über Pages
@@ -34,11 +34,12 @@ Sehen einfach Hard-Reload (`Strg`+`F5`). Konsole zeigt: `Gay-Fetischhof theme JS
 |-------|-------|
 | `gay-fetischhof-theme.css` | Globales Theme (Header, Footer, Buttons, Produktboxen, CMS) im Neon-Cruise-Look. Namespace `gf-`, Root `html.gf-neon`. |
 | `gay-fetischhof-theme.js` | Aktiviert das Theme (`html.gf-neon`), Scroll-State, Neon-Topbar, Scroll-Reveal-Animationen. Keine Eingriffe in Warenkorb/Checkout. |
+| `logo-gay-fetish-courtyard.png` | Logo mit **transparentem Hintergrund** (statt weissem Quadrat). Theme ersetzt das Shop-Logo automatisch per CSS/JS. Sauberste Loesung: diese Datei in Shopware als Logo hochladen (Theme-Manager → Medien → Desktop/Tablet/Mobil-Logo). |
 | `preview.html` | Vorschau der **Startseiten-Bausteine**. Jeder `<section>` = ein CMS-„HTML“-Block für die Erlebniswelt. |
 
 ## 🏠 Startseite einrichten — Auto-Sync aus GitHub
 
-Die Startseite lädt ihren Inhalt **live aus `startseite.html`** (dieses Repo, via jsDelivr).
+Die Startseite lädt ihren Inhalt **live aus `startseite.html`** (dieses Repo, via GitHub Pages).
 In der Shopware-**Erlebniswelt** der Startseite genügt **ein** CMS-„HTML“-Element mit nur
 diesem Platzhalter:
 
@@ -48,7 +49,7 @@ diesem Platzhalter:
 
 Das Theme-JS (`gay-fetischhof-theme.js`) erkennt den Platzhalter, holt `startseite.html` und
 rendert die 5 Sektionen (Hero, Kategorien, USP, Editorial, Newsletter) hinein. **Edit auf
-GitHub → Startseite aktualisiert sich** (jsDelivr-Cache ggf. purgen, s. o.).
+GitHub → Startseite aktualisiert sich** (nach ca. 1–2 Min).
 
 > Den kompletten `preview.html` **nicht** ins HTML-Element einfügen — das ist nur die
 > Design-Vorschau. In Shopware kommt ausschließlich der Platzhalter-`<div>` rein.
